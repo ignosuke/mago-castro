@@ -38,20 +38,23 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="GameInformation" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="GameInformation" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme = SubResource("Theme_mcffj")
 alignment = 1
 
-[node name="TowerHealth" type="MarginContainer" parent="MarginContainer/VBoxContainer/GameInformation"]
+[node name="TowerHealth" type="MarginContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/GameInformation"]
 layout_mode = 2
 
-[node name="HealthBar" type="TextureProgressBar" parent="MarginContainer/VBoxContainer/GameInformation/TowerHealth"]
+[node name="HealthBar" type="TextureProgressBar" parent="MarginContainer/HBoxContainer/VBoxContainer/GameInformation/TowerHealth"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
@@ -61,7 +64,7 @@ texture_under = ExtResource("2_ehre4")
 texture_progress = ExtResource("3_3g4ve")
 tint_progress = Color(1, 1, 1, 0.9882353)
 
-[node name="HealthLabel" type="Label" parent="MarginContainer/VBoxContainer/GameInformation/TowerHealth"]
+[node name="HealthLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/GameInformation/TowerHealth"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Vida: 100"
@@ -70,12 +73,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="GameTime" type="MarginContainer" parent="MarginContainer/VBoxContainer/GameInformation"]
+[node name="GameTime" type="MarginContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/GameInformation"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="GameTimeLabel" type="Label" parent="MarginContainer/VBoxContainer/GameInformation/GameTime"]
+[node name="GameTimeLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/GameInformation/GameTime"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(1, 1)
 layout_direction = 2
@@ -86,33 +89,63 @@ label_settings = SubResource("LabelSettings_2rd6h")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Spells" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="Spells" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 alignment = 1
 
-[node name="Jolt" parent="MarginContainer/VBoxContainer/Spells" instance=ExtResource("4_an1mh")]
+[node name="Jolt" parent="MarginContainer/HBoxContainer/VBoxContainer/Spells" instance=ExtResource("4_an1mh")]
 layout_mode = 2
 this_spell = "JOLT"
 icon = ExtResource("5_32yah")
 
-[node name="Flame" parent="MarginContainer/VBoxContainer/Spells" instance=ExtResource("4_an1mh")]
+[node name="Flame" parent="MarginContainer/HBoxContainer/VBoxContainer/Spells" instance=ExtResource("4_an1mh")]
 layout_mode = 2
 this_spell = "FLAME"
 icon = ExtResource("6_q8sow")
 
-[node name="Firebolt" parent="MarginContainer/VBoxContainer/Spells" instance=ExtResource("4_an1mh")]
+[node name="Firebolt" parent="MarginContainer/HBoxContainer/VBoxContainer/Spells" instance=ExtResource("4_an1mh")]
 layout_mode = 2
 this_spell = "FIREBOLT"
 icon = ExtResource("7_ew3ux")
 
-[node name="CastingMachine" parent="MarginContainer/VBoxContainer" instance=ExtResource("8_vw5mu")]
+[node name="CastingMachine" parent="MarginContainer/HBoxContainer/VBoxContainer" instance=ExtResource("8_vw5mu")]
 custom_minimum_size = Vector2(212, 0)
 layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Spell list:"
+
+[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Jolt"
+horizontal_alignment = 2
+
+[node name="Label3" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Flame"
+horizontal_alignment = 2
+
+[node name="Label4" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Firebolt"
+horizontal_alignment = 2
+
+[node name="Label5" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Earthquake"
+horizontal_alignment = 2
 
 [node name="Pause" parent="." instance=ExtResource("10_euikm")]
