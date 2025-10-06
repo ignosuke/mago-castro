@@ -1,0 +1,118 @@
+[gd_scene load_steps=14 format=3 uid="uid://2dr4psea34po"]
+
+[ext_resource type="Theme" uid="uid://hxly4oe8srts" path="res://assets/ui/default_theme.tres" id="1_1se2i"]
+[ext_resource type="Script" uid="uid://bumg4yl1esx7i" path="res://scripts/ui/hud.gd" id="1_jvmx1"]
+[ext_resource type="Texture2D" uid="uid://bagi306744tgd" path="res://assets/sprites/ui/empty health bar.png" id="2_ehre4"]
+[ext_resource type="Texture2D" uid="uid://2nojuk6i5wf7" path="res://assets/sprites/ui/filler health bar.png" id="3_3g4ve"]
+[ext_resource type="PackedScene" uid="uid://d1hni0am18mep" path="res://scenes/ui/SpellIcon.tscn" id="4_an1mh"]
+[ext_resource type="Texture2D" uid="uid://dfmywqpwbwf5w" path="res://assets/sprites/ui/jolt icon.png" id="5_32yah"]
+[ext_resource type="Texture2D" uid="uid://bypgc0hhjt6w3" path="res://assets/sprites/ui/flame icon.png" id="6_q8sow"]
+[ext_resource type="Texture2D" uid="uid://bxhv5p44om6bg" path="res://assets/sprites/ui/firebolt icon.png" id="7_ew3ux"]
+[ext_resource type="PackedScene" uid="uid://dcionelkkg882" path="res://scenes/player/CastingMachine.tscn" id="8_vw5mu"]
+[ext_resource type="PackedScene" uid="uid://djtk8odkycc04" path="res://scenes/ui/Pause.tscn" id="10_euikm"]
+
+[sub_resource type="Theme" id="Theme_mcffj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3xj3m"]
+font_size = 6
+outline_size = 8
+outline_color = Color(0.0627451, 0.11764706, 0.16078432, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2rd6h"]
+font_size = 10
+outline_size = 10
+outline_color = Color(0.0627451, 0.117647, 0.160784, 1)
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_jvmx1")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.133
+offset_bottom = 64.119995
+grow_horizontal = 2
+theme = ExtResource("1_1se2i")
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="GameInformation" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme = SubResource("Theme_mcffj")
+alignment = 1
+
+[node name="TowerHealth" type="MarginContainer" parent="MarginContainer/VBoxContainer/GameInformation"]
+layout_mode = 2
+
+[node name="HealthBar" type="TextureProgressBar" parent="MarginContainer/VBoxContainer/GameInformation/TowerHealth"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+value = 100.0
+texture_under = ExtResource("2_ehre4")
+texture_progress = ExtResource("3_3g4ve")
+tint_progress = Color(1, 1, 1, 0.9882353)
+
+[node name="HealthLabel" type="Label" parent="MarginContainer/VBoxContainer/GameInformation/TowerHealth"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Vida: 100"
+label_settings = SubResource("LabelSettings_3xj3m")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="GameTime" type="MarginContainer" parent="MarginContainer/VBoxContainer/GameInformation"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="GameTimeLabel" type="Label" parent="MarginContainer/VBoxContainer/GameInformation/GameTime"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(1, 1)
+layout_direction = 2
+layout_mode = 2
+size_flags_vertical = 1
+text = "00:00"
+label_settings = SubResource("LabelSettings_2rd6h")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spells" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+alignment = 1
+
+[node name="Jolt" parent="MarginContainer/VBoxContainer/Spells" instance=ExtResource("4_an1mh")]
+layout_mode = 2
+this_spell = "JOLT"
+icon = ExtResource("5_32yah")
+
+[node name="Flame" parent="MarginContainer/VBoxContainer/Spells" instance=ExtResource("4_an1mh")]
+layout_mode = 2
+this_spell = "FLAME"
+icon = ExtResource("6_q8sow")
+
+[node name="Firebolt" parent="MarginContainer/VBoxContainer/Spells" instance=ExtResource("4_an1mh")]
+layout_mode = 2
+this_spell = "FIREBOLT"
+icon = ExtResource("7_ew3ux")
+
+[node name="CastingMachine" parent="MarginContainer/VBoxContainer" instance=ExtResource("8_vw5mu")]
+custom_minimum_size = Vector2(212, 0)
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Pause" parent="." instance=ExtResource("10_euikm")]

@@ -1,0 +1,80 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7p3kxe5u5skt"]
+
+[ext_resource type="Theme" uid="uid://hxly4oe8srts" path="res://assets/ui/default_theme.tres" id="1_vjtqc"]
+[ext_resource type="Script" uid="uid://kqdlfqatsxyk" path="res://scripts/ui/main_menu.gd" id="2_6jbdy"]
+[ext_resource type="PackedScene" uid="uid://du3dtn0mqr2ym" path="res://scenes/ui/Settings.tscn" id="3_2ysvc"]
+[ext_resource type="AudioStream" uid="uid://wuinw7dams6i" path="res://assets/audio/game_start.wav" id="3_iwbf0"]
+
+[node name="MainMenu" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_vjtqc")
+script = ExtResource("2_6jbdy")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0627451, 0.11764706, 0.16078432, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="GameTitle" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Mago Castro"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonVBOX" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="StartButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonVBOX"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Start"
+
+[node name="OptionsButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonVBOX"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Options"
+
+[node name="Settings" parent="MarginContainer/VBoxContainer/ButtonVBOX" instance=ExtResource("3_2ysvc")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ExitButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonVBOX"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Exit"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_iwbf0")
+bus = &"SFX"

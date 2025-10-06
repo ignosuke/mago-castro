@@ -1,0 +1,97 @@
+[gd_scene load_steps=14 format=3 uid="uid://dhwld6eqkgd4"]
+
+[ext_resource type="Script" uid="uid://68yfvyi3pb3g" path="res://scripts/spells/flame.gd" id="1_scdlo"]
+[ext_resource type="Texture2D" uid="uid://c7harf8fvwi00" path="res://assets/sprites/spells/spells.png" id="2_qr6go"]
+[ext_resource type="Script" uid="uid://bypaps5cd5ags" path="res://scripts/hitbox.gd" id="3_i87jk"]
+[ext_resource type="AudioStream" uid="uid://bl1gce5wu0bre" path="res://assets/audio/flame_impact.wav" id="4_qr6go"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_deqvd"]
+atlas = ExtResource("2_qr6go")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfiny"]
+atlas = ExtResource("2_qr6go")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wwkth"]
+atlas = ExtResource("2_qr6go")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_scdlo"]
+atlas = ExtResource("2_qr6go")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qr6go"]
+atlas = ExtResource("2_qr6go")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i87jk"]
+atlas = ExtResource("2_qr6go")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mi2at"]
+atlas = ExtResource("2_qr6go")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wfqmm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_deqvd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfiny")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wwkth")
+}],
+"loop": false,
+"name": &"explode",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_scdlo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qr6go")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i87jk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mi2at")
+}],
+"loop": true,
+"name": &"shoot",
+"speed": 18.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s47db"]
+radius = 10.666664
+
+[node name="Flame" type="Node2D"]
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_scdlo")
+
+[node name="Animator" type="AnimatedSprite2D" parent="."]
+position = Vector2(10.666667, -1.13686824e-13)
+rotation = -3.1415925
+sprite_frames = SubResource("SpriteFrames_wfqmm")
+animation = &"shoot"
+autoplay = "shoot"
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+script = ExtResource("3_i87jk")
+metadata/_custom_type_script = "uid://bypaps5cd5ags"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(-1.9073486e-06, 0)
+shape = SubResource("CircleShape2D_s47db")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_qr6go")
+bus = &"SFX"

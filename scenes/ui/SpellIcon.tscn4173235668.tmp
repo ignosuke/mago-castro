@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://d1hni0am18mep"]
+
+[ext_resource type="Script" uid="uid://ci1ahins0m5df" path="res://scripts/ui/spell_icon.gd" id="1_w5sgf"]
+[ext_resource type="Texture2D" uid="uid://b5cp4xbw1s4tc" path="res://assets/ui/bottom layer spell icon.png" id="3_qo6ra"]
+[ext_resource type="Texture2D" uid="uid://cx7a3i81jvbcs" path="res://assets/ui/top layer spell icon.png" id="4_qucsl"]
+[ext_resource type="Script" uid="uid://lrnlix6hp5qj" path="res://scripts/shaker.gd" id="5_w5sgf"]
+[ext_resource type="Texture2D" uid="uid://c420havya761w" path="res://assets/ui/spell icon progress.png" id="5_y50k7"]
+
+[node name="SpellIcon" type="Node2D"]
+script = ExtResource("1_w5sgf")
+
+[node name="Base" type="TextureRect" parent="."]
+offset_right = 42.0
+offset_bottom = 42.0
+texture = ExtResource("3_qo6ra")
+
+[node name="Icon" type="TextureRect" parent="."]
+offset_right = 42.0
+offset_bottom = 42.0
+
+[node name="Glass" type="TextureRect" parent="."]
+offset_right = 42.0
+offset_bottom = 42.0
+texture = ExtResource("4_qucsl")
+
+[node name="CooldownOverlay" type="TextureProgressBar" parent="."]
+offset_right = 42.0
+offset_bottom = 42.0
+step = -1.0
+fill_mode = 8
+radial_initial_angle = 180.0
+texture_progress = ExtResource("5_y50k7")
+tint_progress = Color(1, 1, 1, 0.47058824)
+
+[node name="Shaker" type="Node" parent="."]
+script = ExtResource("5_w5sgf")
+oscillation_time = 10.0
+oscillation_points = Array[float]([-25.0, 8.0, -5.0, 2.0, 0.0])

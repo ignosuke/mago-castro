@@ -1,0 +1,74 @@
+[gd_scene load_steps=11 format=3 uid="uid://bagttwdfigeuv"]
+
+[ext_resource type="Script" uid="uid://bypaps5cd5ags" path="res://scripts/hitbox.gd" id="1_llyhb"]
+[ext_resource type="Script" uid="uid://ons6rawr60co" path="res://scripts/spells/firebolt.gd" id="1_qr4ix"]
+[ext_resource type="Texture2D" uid="uid://c7harf8fvwi00" path="res://assets/sprites/spells/spells.png" id="2_s5op8"]
+
+[sub_resource type="Curve" id="Curve_s5op8"]
+_limits = [0.0, 2.0, 0.0, 1.5]
+_data = [Vector2(0, 1.0033591), 0.0, -0.37685198, 0, 0, Vector2(0.41943133, 0.18202257), 0.0, 0.0, 0, 0, Vector2(0.7464454, 2), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uagy4"]
+atlas = ExtResource("2_s5op8")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_72v1i"]
+atlas = ExtResource("2_s5op8")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_brstu"]
+atlas = ExtResource("2_s5op8")
+region = Rect2(64, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1p2n2"]
+atlas = ExtResource("2_s5op8")
+region = Rect2(96, 96, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cnpdf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uagy4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_72v1i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_brstu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1p2n2")
+}],
+"loop": true,
+"name": &"shoot",
+"speed": 18.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s5op8"]
+radius = 8.0
+
+[node name="Firebolt" type="Node2D"]
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_qr4ix")
+speed_curve = SubResource("Curve_s5op8")
+
+[node name="Animator" type="AnimatedSprite2D" parent="."]
+position = Vector2(-16, 1.2715658e-06)
+rotation = -3.1415927
+sprite_frames = SubResource("SpriteFrames_cnpdf")
+animation = &"shoot"
+autoplay = "shoot"
+
+[node name="HitBox" type="Area2D" parent="."]
+position = Vector2(-10.999999, 1.2715658e-06)
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_llyhb")
+metadata/_custom_type_script = "uid://bypaps5cd5ags"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_s5op8")
+
+[connection signal="ENTERED_HURTBOX" from="HitBox" to="." method="_on_impact"]

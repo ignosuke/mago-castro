@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://bykdj7kj5nqcn"]
+
+[ext_resource type="Script" uid="uid://yk7yx1vu0odv" path="res://scripts/enemies/ranged/arrow.gd" id="1_c8ant"]
+[ext_resource type="Script" uid="uid://bypaps5cd5ags" path="res://scripts/hitbox.gd" id="2_273po"]
+[ext_resource type="Texture2D" uid="uid://njsjth2pp66u" path="res://assets/sprites/enemies/enemies.png" id="3_uk8iq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uk8iq"]
+radius = 5.0
+
+[node name="Arrow" type="Node2D"]
+script = ExtResource("1_c8ant")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_uk8iq")
+region_enabled = true
+region_rect = Rect2(192, 46, 32, 7)
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("2_273po")
+metadata/_custom_type_script = "uid://bypaps5cd5ags"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(11, 0)
+shape = SubResource("CircleShape2D_uk8iq")

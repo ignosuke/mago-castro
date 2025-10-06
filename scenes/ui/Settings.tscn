@@ -1,0 +1,72 @@
+[gd_scene load_steps=3 format=3 uid="uid://du3dtn0mqr2ym"]
+
+[ext_resource type="Theme" uid="uid://hxly4oe8srts" path="res://assets/ui/default_theme.tres" id="1_8wfqe"]
+[ext_resource type="Script" uid="uid://80cuacsvi74l" path="res://scripts/ui/settings.gd" id="2_asmva"]
+
+[node name="Settings" type="VBoxContainer"]
+custom_minimum_size = Vector2(150, 100)
+anchors_preset = -1
+anchor_right = 0.23400001
+anchor_bottom = 0.27800003
+offset_right = -149.76001
+offset_bottom = -100.08001
+size_flags_vertical = 3
+theme = ExtResource("1_8wfqe")
+script = ExtResource("2_asmva")
+
+[node name="MasterVolume" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="Label" type="Label" parent="MasterVolume"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 8
+text = "Master"
+
+[node name="MasterSlider" type="HSlider" parent="MasterVolume"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+
+[node name="MusicVolume" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="Label" type="Label" parent="MusicVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 8
+text = "Music"
+
+[node name="MusicSlider" type="HSlider" parent="MusicVolume"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+
+[node name="SFXVolume" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="Label" type="Label" parent="SFXVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 8
+text = "SFX"
+
+[node name="SFXSlider" type="HSlider" parent="SFXVolume"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01

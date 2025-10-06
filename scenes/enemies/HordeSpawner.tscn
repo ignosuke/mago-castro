@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://y1mj31bv6ooq"]
+
+[ext_resource type="Script" uid="uid://dx6t7i4a1bq2u" path="res://scripts/horde_spawner.gd" id="1_a36i8"]
+[ext_resource type="PackedScene" uid="uid://tjn2muhjov76" path="res://scenes/enemies/Melee.tscn" id="2_pu33d"]
+[ext_resource type="PackedScene" uid="uid://cf68hewsf7dn6" path="res://scenes/enemies/Ranged.tscn" id="3_image"]
+[ext_resource type="PackedScene" uid="uid://bgjs03eyuklqn" path="res://scenes/enemies/Kamikaze.tscn" id="4_5ctgs"]
+
+[node name="HordeSpawner" type="Node2D"]
+script = ExtResource("1_a36i8")
+enemies = Array[PackedScene]([ExtResource("2_pu33d"), ExtResource("3_image"), ExtResource("4_5ctgs")])
+
+[node name="SpawnTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Spawnpoints" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="Spawnpoints"]
+position = Vector2(128, 424)
+
+[node name="Marker2D2" type="Marker2D" parent="Spawnpoints"]
+position = Vector2(256, 424)
+
+[node name="Marker2D3" type="Marker2D" parent="Spawnpoints"]
+position = Vector2(386, 426)
+
+[node name="Marker2D4" type="Marker2D" parent="Spawnpoints"]
+position = Vector2(514, 426)
+
+[node name="Marker2D5" type="Marker2D" parent="Spawnpoints"]
+position = Vector2(768, 320)
+
+[node name="Marker2D6" type="Marker2D" parent="Spawnpoints"]
+position = Vector2(704, 256)
+
+[node name="Marker2D7" type="Marker2D" parent="Spawnpoints"]
+position = Vector2(-128, 320)
+
+[node name="Marker2D8" type="Marker2D" parent="Spawnpoints"]
+position = Vector2(-64, 256)
+
+[node name="Marker2D9" type="Marker2D" parent="Spawnpoints"]
+position = Vector2(-88, 424)
+
+[node name="Marker2D11" type="Marker2D" parent="Spawnpoints"]
+position = Vector2(-16, 464)
+
+[node name="Marker2D12" type="Marker2D" parent="Spawnpoints"]
+position = Vector2(656, 464)
+
+[node name="Marker2D10" type="Marker2D" parent="Spawnpoints"]
+position = Vector2(680, 424)

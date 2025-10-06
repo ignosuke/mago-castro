@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://tjn2muhjov76"]
+
+[ext_resource type="Script" uid="uid://bxd80yc7ukcx4" path="res://scripts/enemies/melee.gd" id="1_yyjks"]
+[ext_resource type="Texture2D" uid="uid://cpl7chflf1ho4" path="res://assets/enemies/angier.png" id="2_m3c3h"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m3c3h"]
+radius = 113.137
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hryaq"]
+radius = 48.0
+
+[node name="Melee" type="CharacterBody2D"]
+scale = Vector2(0.5, 0.5)
+motion_mode = 1
+script = ExtResource("1_yyjks")
+
+[node name="AttackRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+shape = SubResource("CircleShape2D_m3c3h")
+debug_color = Color(0.956863, 0, 0, 0.419608)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_m3c3h")
+region_enabled = true
+region_rect = Rect2(80, 80, 96, 92)
+
+[node name="HurtBox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_hryaq")
+
+[connection signal="body_entered" from="AttackRange" to="." method="_in_attack_range"]
+[connection signal="body_exited" from="AttackRange" to="." method="_out_attack_range"]

@@ -1,0 +1,213 @@
+[gd_scene load_steps=25 format=3 uid="uid://tjn2muhjov76"]
+
+[ext_resource type="Script" uid="uid://bxd80yc7ukcx4" path="res://scripts/enemies/melee/melee.gd" id="1_yyjks"]
+[ext_resource type="Texture2D" uid="uid://njsjth2pp66u" path="res://assets/sprites/enemies/enemies.png" id="2_m3c3h"]
+[ext_resource type="Script" uid="uid://bmpicykhtdt61" path="res://scripts/hurtbox.gd" id="4_26lti"]
+[ext_resource type="Script" uid="uid://dr3gh7druu5g0" path="res://scripts/state_machine/finite_state_machine.gd" id="4_qnvyt"]
+[ext_resource type="Script" uid="uid://dx68rhvi75m4e" path="res://scripts/enemies/melee/idle_state.gd" id="5_7sp1t"]
+[ext_resource type="Script" uid="uid://ctqi2dkx1rq5a" path="res://scripts/enemies/melee/attack_state.gd" id="6_gstib"]
+[ext_resource type="Script" uid="uid://bg7m4peorjq1i" path="res://scripts/enemies/tracking_state.gd" id="7_qnvyt"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ajg0a"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qd6im"]
+atlas = ExtResource("2_m3c3h")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7sp1t"]
+atlas = ExtResource("2_m3c3h")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gstib"]
+atlas = ExtResource("2_m3c3h")
+region = Rect2(64, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qnvyt"]
+atlas = ExtResource("2_m3c3h")
+region = Rect2(96, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26lti"]
+atlas = ExtResource("2_m3c3h")
+region = Rect2(128, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ajg0a"]
+atlas = ExtResource("2_m3c3h")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3nxr"]
+atlas = ExtResource("2_m3c3h")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8k4t7"]
+atlas = ExtResource("2_m3c3h")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rfef0"]
+atlas = ExtResource("2_m3c3h")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3272h"]
+atlas = ExtResource("2_m3c3h")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_guu2f"]
+atlas = ExtResource("2_m3c3h")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qnvyt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qd6im")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7sp1t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gstib")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qnvyt")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_26lti")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 18.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ajg0a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3nxr")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8k4t7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rfef0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3272h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_guu2f")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ajg0a"]
+
+[sub_resource type="Animation" id="Animation_26lti"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Animator:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qnvyt"]
+resource_name = "take_damage"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Animator:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666668, 0.16666672, 0.23333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 0.8), Vector2(0.9, 1.05), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ajg0a"]
+_data = {
+&"RESET": SubResource("Animation_26lti"),
+&"take_damage": SubResource("Animation_qnvyt")
+}
+
+[node name="Melee" type="Area2D"]
+collision_layer = 2
+script = ExtResource("1_yyjks")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_ajg0a")
+debug_color = Color(0.956863, 0, 0, 0.419608)
+
+[node name="Shade" type="Sprite2D" parent="."]
+position = Vector2(-1, 7)
+texture = ExtResource("2_m3c3h")
+region_enabled = true
+region_rect = Rect2(69, 55, 22, 6)
+
+[node name="Animator" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 8)
+sprite_frames = SubResource("SpriteFrames_qnvyt")
+animation = &"idle"
+autoplay = "walking"
+offset = Vector2(2, -16)
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("4_26lti")
+metadata/_custom_type_script = "uid://bmpicykhtdt61"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_ajg0a")
+
+[node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("default_state")]
+script = ExtResource("4_qnvyt")
+default_state = NodePath("IdleState")
+metadata/_custom_type_script = "uid://dr3gh7druu5g0"
+
+[node name="IdleState" type="Node" parent="FiniteStateMachine"]
+script = ExtResource("5_7sp1t")
+
+[node name="AttackState" type="Node" parent="FiniteStateMachine"]
+script = ExtResource("6_gstib")
+
+[node name="TrackingState" type="Node" parent="FiniteStateMachine"]
+script = ExtResource("7_qnvyt")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ajg0a")
+}
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 29.0
+offset_bottom = -9.0
+text = "Vida: 10"
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+collide_with_areas = true
+collide_with_bodies = false
+
+[connection signal="area_entered" from="." to="." method="_entered_attack_range"]
+[connection signal="area_exited" from="." to="." method="_exited_attack_range"]
+[connection signal="animation_finished" from="Animator" to="FiniteStateMachine/AttackState" method="_on_attack_finished"]

@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://dau21p6lakbxd"]
+
+[ext_resource type="Script" uid="uid://2oqrv4nwmpgn" path="res://scripts/player/mage.gd" id="1_v6fml"]
+[ext_resource type="Texture2D" uid="uid://cut01yvoydgvs" path="res://assets/player/el mago castro.png" id="2_gjx5d"]
+[ext_resource type="Texture2D" uid="uid://nb37s1avh63b" path="res://assets/ui/focus.png" id="3_7apep"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gjx5d"]
+size = Vector2(640, 322)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_miwkq"]
+atlas = ExtResource("3_7apep")
+region = Rect2(0, 0, 34, 54)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e2dau"]
+atlas = ExtResource("3_7apep")
+region = Rect2(34, 0, 34, 54)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_40wgc"]
+atlas = ExtResource("3_7apep")
+region = Rect2(68, 0, 34, 54)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_saoyv"]
+atlas = ExtResource("3_7apep")
+region = Rect2(102, 0, 34, 54)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qck6w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_miwkq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e2dau")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_40wgc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_saoyv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Mage" type="Node2D"]
+script = ExtResource("1_v6fml")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_gjx5d")
+region_enabled = true
+region_rect = Rect2(11, 12, 41, 47)
+
+[node name="LeftHand" type="Marker2D" parent="."]
+position = Vector2(24, -8)
+
+[node name="RightHand" type="Marker2D" parent="."]
+position = Vector2(-24, -8)
+
+[node name="WatchZone" type="Area2D" parent="."]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WatchZone"]
+position = Vector2(0, 151)
+shape = SubResource("RectangleShape2D_gjx5d")
+
+[node name="Focus" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_qck6w")
+autoplay = "default"
+frame_progress = 0.12233237

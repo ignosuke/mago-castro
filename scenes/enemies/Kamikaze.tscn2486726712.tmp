@@ -1,0 +1,236 @@
+[gd_scene load_steps=29 format=3 uid="uid://bgjs03eyuklqn"]
+
+[ext_resource type="Script" uid="uid://d2yxhinp6gwqk" path="res://scripts/enemies/kamikaze/kamikaze.gd" id="1_s2wip"]
+[ext_resource type="Texture2D" uid="uid://njsjth2pp66u" path="res://assets/enemies/enemies.png" id="1_swku4"]
+[ext_resource type="Script" uid="uid://bmpicykhtdt61" path="res://scripts/hurtbox.gd" id="3_hcr7g"]
+[ext_resource type="Texture2D" uid="uid://b8xkcf8v3u3jx" path="res://assets/spells/Red Effect Bullet Impact Explosion 32x32.png" id="3_la4pa"]
+[ext_resource type="Script" uid="uid://dr3gh7druu5g0" path="res://scripts/state_machine/finite_state_machine.gd" id="4_s3j50"]
+[ext_resource type="Script" uid="uid://b5r16acd2xqfk" path="res://scripts/enemies/kamikaze/tracking_state.gd" id="5_s3j50"]
+[ext_resource type="Script" uid="uid://ccrrjfvhsi1os" path="res://scripts/enemies/kamikaze/immolating_state.gd" id="6_ajave"]
+[ext_resource type="Script" uid="uid://byb7jxtheu1fd" path="res://scripts/enemies/kamikaze/exploding_state.gd" id="7_xlw1w"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s2wip"]
+radius = 12.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_swku4"]
+atlas = ExtResource("1_swku4")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xlw1w"]
+atlas = ExtResource("1_swku4")
+region = Rect2(32, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_la4pa"]
+atlas = ExtResource("1_swku4")
+region = Rect2(64, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3opq"]
+atlas = ExtResource("1_swku4")
+region = Rect2(96, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6fd5d"]
+atlas = ExtResource("1_swku4")
+region = Rect2(128, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4oww"]
+atlas = ExtResource("3_la4pa")
+region = Rect2(512, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sm4od"]
+atlas = ExtResource("3_la4pa")
+region = Rect2(544, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lnivl"]
+atlas = ExtResource("3_la4pa")
+region = Rect2(576, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bnemc"]
+atlas = ExtResource("3_la4pa")
+region = Rect2(608, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s2wip"]
+atlas = ExtResource("1_swku4")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_glh38"]
+atlas = ExtResource("1_swku4")
+region = Rect2(0, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hcr7g"]
+atlas = ExtResource("1_swku4")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3j50"]
+atlas = ExtResource("1_swku4")
+region = Rect2(32, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ajave"]
+atlas = ExtResource("1_swku4")
+region = Rect2(64, 128, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xlw1w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_swku4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xlw1w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_la4pa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g3opq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6fd5d")
+}],
+"loop": false,
+"name": &"explode",
+"speed": 18.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p4oww")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sm4od")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lnivl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bnemc")
+}],
+"loop": false,
+"name": &"explosion",
+"speed": 24.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s2wip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_glh38")
+}],
+"loop": true,
+"name": &"immolating",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hcr7g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s3j50")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hcr7g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ajave")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ajave"]
+radius = 7.0
+
+[sub_resource type="Animation" id="Animation_26lti"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Animator:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qnvyt"]
+resource_name = "take_damage"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Animator:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666668, 0.16666672, 0.23333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 0.8), Vector2(0.9, 1.05), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ajg0a"]
+_data = {
+&"RESET": SubResource("Animation_26lti"),
+&"take_damage": SubResource("Animation_qnvyt")
+}
+
+[node name="Kamikaze" type="Area2D"]
+script = ExtResource("1_s2wip")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -1)
+shape = SubResource("CircleShape2D_s2wip")
+debug_color = Color(1, 0, 0, 0.41960785)
+
+[node name="Animator" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_xlw1w")
+animation = &"immolating"
+autoplay = "walking"
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("3_hcr7g")
+metadata/_custom_type_script = "uid://bmpicykhtdt61"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(-1, -1)
+shape = SubResource("CircleShape2D_ajave")
+
+[node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("default_state")]
+script = ExtResource("4_s3j50")
+default_state = NodePath("TrackingState")
+metadata/_custom_type_script = "uid://dr3gh7druu5g0"
+
+[node name="TrackingState" type="Node" parent="FiniteStateMachine"]
+script = ExtResource("5_s3j50")
+
+[node name="ImmolatingState" type="Node" parent="FiniteStateMachine"]
+script = ExtResource("6_ajave")
+
+[node name="ExplodingState" type="Node" parent="FiniteStateMachine"]
+script = ExtResource("7_xlw1w")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ajg0a")
+}
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 29.0
+offset_bottom = -9.0
+text = "Vida: 10"
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+collide_with_areas = true
+collide_with_bodies = false
+
+[connection signal="area_entered" from="." to="." method="_entered_attack_range"]
+[connection signal="area_exited" from="." to="." method="_exited_attack_range"]
+[connection signal="animation_finished" from="Animator" to="FiniteStateMachine/ExplodingState" method="_on_explosion_finished"]

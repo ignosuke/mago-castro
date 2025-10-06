@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://dcionelkkg882"]
+
+[ext_resource type="Script" uid="uid://djpg6nakcgv1v" path="res://scripts/player/casting_machine.gd" id="1_1g058"]
+[ext_resource type="Theme" uid="uid://hxly4oe8srts" path="res://assets/ui/default_theme.tres" id="1_rx8p8"]
+[ext_resource type="FontFile" uid="uid://dv5ntxs6ktd86" path="res://assets/fonts/Daydream.otf" id="2_1g058"]
+
+[sub_resource type="Theme" id="Theme_rx8p8"]
+default_font = ExtResource("2_1g058")
+
+[sub_resource type="LabelSettings" id="LabelSettings_1g058"]
+line_spacing = 4.0
+outline_size = 16
+outline_color = Color(0.0627451, 0.117647, 0.141176, 1)
+
+[node name="CastingMachine" type="MarginContainer"]
+texture_filter = 1
+offset_right = 204.0
+offset_bottom = 26.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_rx8p8")
+script = ExtResource("1_1g058")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme = SubResource("Theme_rx8p8")
+text = "FIREBOLT"
+label_settings = SubResource("LabelSettings_1g058")
+horizontal_alignment = 1
+vertical_alignment = 1
