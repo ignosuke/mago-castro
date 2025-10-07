@@ -187,10 +187,11 @@ region_enabled = true
 region_rect = Rect2(69, 55, 22, 6)
 
 [node name="Animator" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -8)
+position = Vector2(-1, 7)
 sprite_frames = SubResource("SpriteFrames_xlw1w")
 animation = &"explode"
 autoplay = "walking"
+offset = Vector2(1, -15)
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 0
@@ -220,14 +221,6 @@ script = ExtResource("7_xlw1w")
 libraries = {
 &"": SubResource("AnimationLibrary_ajg0a")
 }
-
-[node name="Label" type="Label" parent="."]
-visible = false
-offset_left = -32.0
-offset_top = -32.0
-offset_right = 29.0
-offset_bottom = -9.0
-text = "Vida: 10"
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 collide_with_areas = true

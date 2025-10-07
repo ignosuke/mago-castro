@@ -1,18 +1,27 @@
 extends CanvasLayer
 
+@onready var hud_container: MarginContainer = %HUDContainer
 @onready var game_time: Label = %GameTimeLabel
 @onready var health_label: Label = %HealthLabel
 @onready var texture_progress_bar: TextureProgressBar = %HealthBar
 
 func _ready() -> void:
+	hud_container.modulate.a = 0.0
+	
 	MessageBus.TOWER_HEALTH_UPDATE.connect(_on_tower_health_changed)
 	texture_progress_bar.max_value = 100
 	texture_progress_bar.value = 100
 	
-	FadeManager.fade_out_finished.connect(func(): GameManager.start())
+	MessageBus.TUTORIAL_COMPLETED.connect(_show_hud)
 
 func _process(_delta: float) -> void:
 	game_time.text = GameManager.display_time
+
+func _show_hud():
+	MessageBus.ENABLE_CASTING_MACHINE.emit()
+	create_tween().tween_property(hud_container, "modulate:a", 1.0, 1.0).finished.connect(func(): 
+		GameManager.start()
+	)
 
 func _on_tower_health_changed(current_health: int):
 	health_label.text = "Vida: %s" % current_health

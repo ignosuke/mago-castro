@@ -1,5 +1,6 @@
 extends Enemy
 
+signal died
 @onready var hurt_box: HurtBox = $HurtBox
 
 func _ready() -> void:
@@ -16,4 +17,5 @@ func _physics_process(_delta: float) -> void:
 	raycast.target_position = GameManager.tower_pos - raycast.global_position
 
 func _take_damage(_incoming_damage: int) -> void:
+	died.emit()
 	queue_free()

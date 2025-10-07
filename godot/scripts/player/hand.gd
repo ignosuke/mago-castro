@@ -9,10 +9,11 @@ var hide_timer: Timer = Timer.new()
 var last_picked: Texture2D
 
 func _ready() -> void:
-	hide()
+	sprite.scale = Vector2.ZERO
+	
 	add_child(hide_timer)
 	hide_timer.one_shot = true
-	hide_timer.wait_time = 0.3
+	hide_timer.wait_time = 1.5
 	hide_timer.timeout.connect(func(): animation_player.play("hide_hand"))
 
 func change_gesture():

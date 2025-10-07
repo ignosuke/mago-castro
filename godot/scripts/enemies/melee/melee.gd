@@ -3,7 +3,6 @@ class_name Melee extends Enemy
 @onready var animator: AnimatedSprite2D = $Animator
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var hurt_box: HurtBox = $HurtBox
-@onready var label: Label = $Label
 
 func _ready() -> void:
 	_init(10.0, 4, 30.0, 3.0)
@@ -25,9 +24,8 @@ func _animate(new_animation: String) -> void:
 
 func _take_damage(incoming_damage: int) -> void:
 	HEALTH -= incoming_damage
-	label.text = "Vida: %s" % HEALTH
 	if HEALTH > 0: animation_player.play("take_damage")
-	queue_free()
+	else: queue_free()
 
 func _entered_attack_range(_area: Area2D) -> void:
 	ON_ATTACK_RANGE = true

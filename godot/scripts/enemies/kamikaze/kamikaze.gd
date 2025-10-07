@@ -25,7 +25,7 @@ func _animate(new_animation: String) -> void:
 func _take_damage(incoming_damage: int) -> void:
 	HEALTH -= incoming_damage
 	if HEALTH > 0: animation_player.play("take_damage")
-	queue_free()
+	else: queue_free()
 
 func _entered_attack_range(_area: Area2D) -> void:
 	ON_ATTACK_RANGE = true

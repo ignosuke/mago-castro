@@ -18,7 +18,6 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func fade_in_transition(duration: float = 1.5) -> void:
-	
 	fade_rect.modulate.a = 0.0
 	fade_rect.show()
 	fade_rect.visible = true
@@ -33,7 +32,6 @@ func fade_in_transition(duration: float = 1.5) -> void:
 	)
 
 func fade_out_transition(duration: float = 1.5) -> void:
-	
 	fade_rect.modulate.a = 1.0
 	fade_rect.show()
 	fade_rect.visible = true

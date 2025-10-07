@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=3 uid="uid://t06pferan4g8"]
+
+[ext_resource type="Script" uid="uid://bnhdo7fsfufm0" path="res://scripts/ui/tutorial.gd" id="1_pu4n6"]
+[ext_resource type="Theme" uid="uid://hxly4oe8srts" path="res://assets/ui/default_theme.tres" id="2_qxbyf"]
+[ext_resource type="PackedScene" uid="uid://cqx4qbr3tl1e0" path="res://scenes/enemies/Dummy.tscn" id="3_qxbyf"]
+
+[node name="Tutorial" type="CanvasLayer"]
+script = ExtResource("1_pu4n6")
+
+[node name="TutorialContainer" type="MarginContainer" parent="."]
+anchors_preset = -1
+anchor_left = 0.6
+anchor_top = 0.11100001
+anchor_right = 1.0
+anchor_bottom = 0.356
+offset_top = 0.0399971
+offset_bottom = -0.16000366
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_qxbyf")
+
+[node name="Panel" type="Panel" parent="TutorialContainer"]
+layout_mode = 2
+
+[node name="Dialog" type="Label" parent="TutorialContainer/Panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.031000001
+anchor_top = 0.091000006
+anchor_right = 0.96900004
+anchor_bottom = 0.90900004
+offset_left = 0.06399965
+offset_top = -0.008000374
+offset_right = -0.06401062
+offset_bottom = 0.0079956055
+theme_override_font_sizes/font_size = 12
+autowrap_mode = 3
+
+[node name="Continue" type="Label" parent="TutorialContainer/Panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.64100003
+anchor_top = 0.63600004
+anchor_right = 0.984
+anchor_bottom = 0.966
+offset_left = -4.0960083
+offset_top = 40.031998
+offset_right = -3.904007
+offset_bottom = 39.991997
+theme_override_font_sizes/font_size = 8
+text = "Press E
+to continue"
+
+[node name="Dummy" parent="." instance=ExtResource("3_qxbyf")]
+position = Vector2(264, 232)

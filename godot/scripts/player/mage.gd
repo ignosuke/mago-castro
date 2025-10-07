@@ -16,13 +16,16 @@ var closest_enemy: Enemy
 var enemies_by_proximity: Array[Enemy] = []
 var horde_completed: bool = false
 
-var SPELLS = ["FLAME", "FIREBOLT", "JOLT"]
+var SPELLS = ["FLAME", "FIREBOLT", "JOLT", "EARTHQUAKE"]
 
 var flame_scene = preload("res://scenes/spells/targeted/Flame.tscn")
 var firebolt_scene = preload("res://scenes/spells/targeted/Firebolt.tscn")
 var jolt_scene = preload("res://scenes/spells/targeted/Jolt.tscn")
+var earthquake_scene = preload("res://scenes/spells/untargeted/Earthquake.tscn")
 
 var penalty_timer: Timer = Timer.new()
+@onready var penalty_animator: AnimationPlayer = $Penalty/PenaltyAnimator
+@onready var audio: AudioStreamPlayer = $AudioStreamPlayer
 
 func _ready() -> void:
 	left_hand = hand_scene.instantiate()
@@ -47,6 +50,7 @@ func _ready() -> void:
 	penalty_timer.one_shot = true
 	penalty_timer.wait_time = 2
 	MessageBus.ATTEMPT_CAST.connect(_on_attempt_cast)
+	MessageBus.CAST_WHILE_PENALIZED.connect(_cast_while_penalized)
 	penalty_timer.timeout.connect(_on_penalty_timeout)
 	
 	MessageBus.HORDE_COMPLETED.connect(func(): horde_completed = true)
@@ -94,7 +98,7 @@ func focus_enemy(e: Enemy) -> void:
 func _change_hands_gestures() -> void:
 	if gesture_timer.is_stopped():
 		gesture_timer.start()
-		print("Código MANO: entré - Timer value: %s" % gesture_timer.time_left)
+		#print("Código MANO: entré - Timer value: %s" % gesture_timer.time_left)
 		left_hand.change_gesture()
 		right_hand.change_gesture()
 
@@ -103,17 +107,23 @@ func _on_attempt_cast(spell_name: String) -> void:
 	
 	if SPELLS.has(spell_name) && has_method(spell_name):
 		if GameManager.cooldowns[spell_name] > 0.0:
+			audio.play()
 			MessageBus.CAST_ON_COOLDOWN.emit(spell_name)
 			return
 		if call(spell_name): GameManager.start_cooldown(spell_name)
 	
 	else:
-		# Aparecer signos de ?? sobre la cabeza del mago para el feedback de la penalizacion 
+		penalty_animator.play("penalty")
+		audio.play()
 		MessageBus.TOGGLE_PENALTY.emit(true)
 		penalty_timer.start()
 
 func _on_penalty_timeout() -> void:
+	penalty_animator.play("cast_ready")
 	MessageBus.TOGGLE_PENALTY.emit(false)
+
+func _cast_while_penalized() -> void:
+	pass
 
 #region SPELLS
 # Target spells: solo son casteados si hay un objetivo. Devuelven true/false para entrar o no en cooldown
@@ -123,7 +133,7 @@ func FLAME() -> bool:
 		flame.position = spell_spawnpoint.global_position
 		flame.target = flame.position.direction_to(closest_enemy.global_position)
 		add_child(flame)
-		GameManager.cooldowns["FLAME"] = 2.0
+		GameManager.cooldowns["FLAME"] = GameManager.max_cooldowns["FLAME"]
 		return true
 	return false
 
@@ -134,7 +144,7 @@ func FIREBOLT() -> bool:
 		firebolt.position = spell_spawnpoint.global_position
 		firebolt.target = firebolt.position.direction_to(closest_enemy.global_position)
 		add_child(firebolt)
-		GameManager.cooldowns["FIREBOLT"] = 4.0
+		GameManager.cooldowns["FIREBOLT"] = GameManager.max_cooldowns["FIREBOLT"]
 		return true
 	return false
 
@@ -144,7 +154,13 @@ func JOLT() -> bool:
 		jolt.position = spell_spawnpoint.global_position
 		jolt.target = closest_enemy.global_position
 		add_child(jolt)
-		GameManager.cooldowns["JOLT"] = 0.2
+		GameManager.cooldowns["JOLT"] = GameManager.max_cooldowns["JOLT"]
 		return true
 	return false
+
+func EARTHQUAKE() -> void:
+	var earthquake: Earthquake = earthquake_scene.instantiate()
+	earthquake.position = spell_spawnpoint.global_position
+	add_child(earthquake)
+	GameManager.cooldowns["EARTHQUAKE"] = GameManager.max_cooldowns["EARTHQUAKE"]
 #endregion

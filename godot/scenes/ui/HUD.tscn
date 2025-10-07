@@ -26,7 +26,8 @@ outline_color = Color(0.0627451, 0.117647, 0.160784, 1)
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_jvmx1")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="HUDContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 0.133
@@ -38,23 +39,23 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HUDContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+[node name="GameInformation" type="VBoxContainer" parent="HUDContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="GameInformation" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HUDContainer/HBoxContainer/GameInformation"]
 layout_mode = 2
 size_flags_vertical = 0
 theme = SubResource("Theme_mcffj")
 alignment = 1
 
-[node name="TowerHealth" type="MarginContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/GameInformation"]
+[node name="TowerHealth" type="MarginContainer" parent="HUDContainer/HBoxContainer/GameInformation/HBoxContainer"]
 layout_mode = 2
 
-[node name="HealthBar" type="TextureProgressBar" parent="MarginContainer/HBoxContainer/VBoxContainer/GameInformation/TowerHealth"]
+[node name="HealthBar" type="TextureProgressBar" parent="HUDContainer/HBoxContainer/GameInformation/HBoxContainer/TowerHealth"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
@@ -64,7 +65,7 @@ texture_under = ExtResource("2_ehre4")
 texture_progress = ExtResource("3_3g4ve")
 tint_progress = Color(1, 1, 1, 0.9882353)
 
-[node name="HealthLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/GameInformation/TowerHealth"]
+[node name="HealthLabel" type="Label" parent="HUDContainer/HBoxContainer/GameInformation/HBoxContainer/TowerHealth"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Vida: 100"
@@ -73,12 +74,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="GameTime" type="MarginContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/GameInformation"]
+[node name="GameTime" type="MarginContainer" parent="HUDContainer/HBoxContainer/GameInformation/HBoxContainer"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="GameTimeLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/GameInformation/GameTime"]
+[node name="GameTimeLabel" type="Label" parent="HUDContainer/HBoxContainer/GameInformation/HBoxContainer/GameTime"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(1, 1)
 layout_direction = 2
@@ -89,60 +90,61 @@ label_settings = SubResource("LabelSettings_2rd6h")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Spells" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Spells" type="HBoxContainer" parent="HUDContainer/HBoxContainer/GameInformation"]
 layout_mode = 2
 size_flags_vertical = 0
 alignment = 1
 
-[node name="Jolt" parent="MarginContainer/HBoxContainer/VBoxContainer/Spells" instance=ExtResource("4_an1mh")]
+[node name="Jolt" parent="HUDContainer/HBoxContainer/GameInformation/Spells" instance=ExtResource("4_an1mh")]
 layout_mode = 2
 this_spell = "JOLT"
 icon = ExtResource("5_32yah")
 
-[node name="Flame" parent="MarginContainer/HBoxContainer/VBoxContainer/Spells" instance=ExtResource("4_an1mh")]
+[node name="Flame" parent="HUDContainer/HBoxContainer/GameInformation/Spells" instance=ExtResource("4_an1mh")]
 layout_mode = 2
 this_spell = "FLAME"
 icon = ExtResource("6_q8sow")
 
-[node name="Firebolt" parent="MarginContainer/HBoxContainer/VBoxContainer/Spells" instance=ExtResource("4_an1mh")]
+[node name="Firebolt" parent="HUDContainer/HBoxContainer/GameInformation/Spells" instance=ExtResource("4_an1mh")]
 layout_mode = 2
 this_spell = "FIREBOLT"
 icon = ExtResource("7_ew3ux")
 
-[node name="CastingMachine" parent="MarginContainer/HBoxContainer/VBoxContainer" instance=ExtResource("8_vw5mu")]
+[node name="CastingMachine" parent="HUDContainer/HBoxContainer/GameInformation" instance=ExtResource("8_vw5mu")]
 custom_minimum_size = Vector2(212, 0)
 layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 0
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+[node name="SpellList" type="VBoxContainer" parent="HUDContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="Label" type="Label" parent="HUDContainer/HBoxContainer/SpellList"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Spell list:"
 
-[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="Label2" type="Label" parent="HUDContainer/HBoxContainer/SpellList"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "Jolt"
 horizontal_alignment = 2
 
-[node name="Label3" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="Label3" type="Label" parent="HUDContainer/HBoxContainer/SpellList"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "Flame"
 horizontal_alignment = 2
 
-[node name="Label4" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="Label4" type="Label" parent="HUDContainer/HBoxContainer/SpellList"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "Firebolt"
 horizontal_alignment = 2
 
-[node name="Label5" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="Label5" type="Label" parent="HUDContainer/HBoxContainer/SpellList"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "Earthquake"

@@ -128,9 +128,10 @@ region_enabled = true
 region_rect = Rect2(69, 55, 22, 6)
 
 [node name="Animator" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -9)
+position = Vector2(0, 6)
 sprite_frames = SubResource("SpriteFrames_vn1h3")
 animation = &"idle"
+offset = Vector2(0, -15)
 
 [node name="Bow" type="Sprite2D" parent="."]
 position = Vector2(9, 0)

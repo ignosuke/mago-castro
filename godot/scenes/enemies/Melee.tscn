@@ -196,14 +196,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_ajg0a")
 }
 
-[node name="Label" type="Label" parent="."]
-visible = false
-offset_left = -32.0
-offset_top = -32.0
-offset_right = 29.0
-offset_bottom = -9.0
-text = "Vida: 10"
-
 [node name="RayCast2D" type="RayCast2D" parent="."]
 collide_with_areas = true
 collide_with_bodies = false

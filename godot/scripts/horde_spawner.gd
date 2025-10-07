@@ -15,8 +15,8 @@ var is_spawning: bool = false
 func _ready() -> void:
 	spawn_timer.timeout.connect(_on_spawn_timer_timeout)
 	spawn_curve = create_difficulty_curve()
-
-	#start_spawning()
+	
+	MessageBus.TUTORIAL_COMPLETED.connect(func(): start_spawning())
 
 func start_spawning():
 	is_spawning = true
@@ -118,4 +118,3 @@ func stop_spawning():
 	is_spawning = false
 	spawn_timer.stop()
 	MessageBus.HORDE_COMPLETED.emit()
-	#print("\n¡Oleada completa!")
