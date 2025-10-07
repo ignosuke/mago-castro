@@ -12,4 +12,4 @@ const dialog_msgs = [
 ]
 
 func _ready() -> void:
-	pass
+	print(dialog_msgs[0])
