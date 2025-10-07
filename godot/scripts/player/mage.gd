@@ -16,7 +16,7 @@ var closest_enemy: Enemy
 var enemies_by_proximity: Array[Enemy] = []
 var horde_completed: bool = false
 
-var SPELLS = ["FLAME", "FIREBOLT", "JOLT", "EARTHQUAKE"]
+var SPELLS = ["FLAME", "FIREBOLT", "JOLT"]
 
 var flame_scene = preload("res://scenes/spells/targeted/Flame.tscn")
 var firebolt_scene = preload("res://scenes/spells/targeted/Firebolt.tscn")
@@ -157,10 +157,4 @@ func JOLT() -> bool:
 		GameManager.cooldowns["JOLT"] = GameManager.max_cooldowns["JOLT"]
 		return true
 	return false
-
-func EARTHQUAKE() -> void:
-	var earthquake: Earthquake = earthquake_scene.instantiate()
-	earthquake.position = spell_spawnpoint.global_position
-	add_child(earthquake)
-	GameManager.cooldowns["EARTHQUAKE"] = GameManager.max_cooldowns["EARTHQUAKE"]
 #endregion

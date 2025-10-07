@@ -1,16 +1,11 @@
-[gd_scene load_steps=11 format=4 uid="uid://dsypgiiynky7m"]
+[gd_scene load_steps=9 format=4 uid="uid://dsypgiiynky7m"]
 
 [ext_resource type="PackedScene" uid="uid://2dr4psea34po" path="res://scenes/ui/HUD.tscn" id="1_cpr0p"]
-[ext_resource type="Script" uid="uid://ca1pj5arart8a" path="res://scripts/ui/shaker.gd" id="1_kiw3p"]
 [ext_resource type="Texture2D" uid="uid://h5c30022m6kx" path="res://assets/sprites/terrain/New Basic Tiles Free.png" id="1_s0nni"]
 [ext_resource type="PackedScene" uid="uid://t06pferan4g8" path="res://scenes/ui/Tutorial.tscn" id="2_kiw3p"]
 [ext_resource type="PackedScene" uid="uid://brtnpx5sgbdmx" path="res://scenes/player/MageTower.tscn" id="2_qbsmt"]
 [ext_resource type="PackedScene" uid="uid://y1mj31bv6ooq" path="res://scenes/enemies/HordeSpawner.tscn" id="4_78awf"]
 [ext_resource type="AudioStream" uid="uid://d3n0j52w2eq8h" path="res://assets/audio/game_music.wav" id="7_kiw3p"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_kiw3p"]
-noise_type = 3
-frequency = 0.5
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_aug50"]
 texture = ExtResource("1_s0nni")
@@ -142,14 +137,6 @@ texture = ExtResource("1_s0nni")
 sources/0 = SubResource("TileSetAtlasSource_aug50")
 
 [node name="Game" type="Node2D"]
-
-[node name="Camera2D" type="Camera2D" parent="."]
-anchor_mode = 0
-
-[node name="Shaker" type="Node2D" parent="." node_paths=PackedStringArray("camera")]
-script = ExtResource("1_kiw3p")
-camera = NodePath("../Camera2D")
-noise = SubResource("FastNoiseLite_kiw3p")
 
 [node name="HUD" parent="." instance=ExtResource("1_cpr0p")]
 

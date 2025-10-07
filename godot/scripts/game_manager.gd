@@ -21,15 +21,13 @@ signal GAME_OVER(victory: bool)
 var cooldowns = {
 	FLAME = 0.0,
 	FIREBOLT = 0.0,
-	JOLT = 0.0,
-	EARTHQUAKE = 0.0
+	JOLT = 0.0
 }
 
 var max_cooldowns = {
 	FLAME = 2.0,
 	FIREBOLT = 4.0,
-	JOLT = 0.2,
-	EARTHQUAKE = 20.0
+	JOLT = 0.2
 }
 
 func _ready() -> void:
