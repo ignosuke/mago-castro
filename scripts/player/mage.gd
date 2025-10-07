@@ -35,7 +35,7 @@ func _ready() -> void:
 	
 	add_child(gesture_timer)
 	gesture_timer.one_shot = true
-	gesture_timer.wait_time = 0.2
+	gesture_timer.wait_time = 0.5
 	
 	MessageBus.RECITING_SPELL.connect(_change_hands_gestures)
 	
@@ -92,7 +92,11 @@ func focus_enemy(e: Enemy) -> void:
 	focus.global_position = e.global_position
 
 func _change_hands_gestures() -> void:
-	gesture_timer.start()
+	if gesture_timer.is_stopped():
+		gesture_timer.start()
+		print("Código MANO: entré - Timer value: %s" % gesture_timer.time_left)
+		left_hand.change_gesture()
+		right_hand.change_gesture()
 
 func _on_attempt_cast(spell_name: String) -> void:
 	if spell_name == "": return
