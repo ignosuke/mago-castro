@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://d1hni0am18mep"]
+[gd_scene load_steps=6 format=3 uid="uid://d1hni0am18mep"]
 
 [ext_resource type="Script" uid="uid://ci1ahins0m5df" path="res://scripts/ui/spell_icon.gd" id="1_w5sgf"]
 [ext_resource type="Texture2D" uid="uid://b5cp4xbw1s4tc" path="res://assets/sprites/ui/bottom layer spell icon.png" id="3_qo6ra"]
 [ext_resource type="Texture2D" uid="uid://cx7a3i81jvbcs" path="res://assets/sprites/ui/top layer spell icon.png" id="4_qucsl"]
+[ext_resource type="AudioStream" uid="uid://wi6m8xj7whp5" path="res://assets/audio/spell_recharged.wav" id="5_w5sgf"]
 [ext_resource type="Texture2D" uid="uid://c420havya761w" path="res://assets/sprites/ui/spell icon progress.png" id="5_y50k7"]
 
 [node name="SpellIcon" type="MarginContainer"]
@@ -36,3 +37,8 @@ fill_mode = 8
 radial_initial_angle = 180.0
 texture_progress = ExtResource("5_y50k7")
 tint_progress = Color(1, 1, 1, 0.47058824)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_w5sgf")
+volume_db = -10.0
+bus = &"SFX"

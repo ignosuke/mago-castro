@@ -21,7 +21,6 @@ var SPELLS = ["FLAME", "FIREBOLT", "JOLT"]
 var flame_scene = preload("res://scenes/spells/targeted/Flame.tscn")
 var firebolt_scene = preload("res://scenes/spells/targeted/Firebolt.tscn")
 var jolt_scene = preload("res://scenes/spells/targeted/Jolt.tscn")
-var earthquake_scene = preload("res://scenes/spells/untargeted/Earthquake.tscn")
 
 var penalty_timer: Timer = Timer.new()
 @onready var penalty_animator: AnimationPlayer = $Penalty/PenaltyAnimator
@@ -108,7 +107,6 @@ func _on_attempt_cast(spell_name: String) -> void:
 	if SPELLS.has(spell_name) && has_method(spell_name):
 		if GameManager.cooldowns[spell_name] > 0.0:
 			audio.play()
-			MessageBus.CAST_ON_COOLDOWN.emit(spell_name)
 			return
 		if call(spell_name): GameManager.start_cooldown(spell_name)
 	
@@ -123,7 +121,7 @@ func _on_penalty_timeout() -> void:
 	MessageBus.TOGGLE_PENALTY.emit(false)
 
 func _cast_while_penalized() -> void:
-	pass
+	audio.play()
 
 #region SPELLS
 # Target spells: solo son casteados si hay un objetivo. Devuelven true/false para entrar o no en cooldown

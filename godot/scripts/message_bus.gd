@@ -5,7 +5,6 @@ extends Node
 signal ATTEMPT_CAST(spell_name: String)
 signal CAST_WHILE_PENALIZED
 signal RECITING_SPELL
-signal CAST_ON_COOLDOWN(spell_name: String)
 signal TOGGLE_PENALTY(penalized: bool)
 
 signal COOLDOWN_STARTED(spell_name: String, duration: float)

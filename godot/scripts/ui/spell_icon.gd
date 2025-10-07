@@ -4,6 +4,7 @@ class_name SpellIcon extends Control
 @export var icon: Texture2D
 
 @onready var cooldown_overlay: TextureProgressBar = $CooldownOverlay
+@onready var audio: AudioStreamPlayer = $AudioStreamPlayer
 
 func _ready() -> void:
 	$Icon.texture = icon
@@ -11,8 +12,6 @@ func _ready() -> void:
 	MessageBus.COOLDOWN_STARTED.connect(_on_cooldown_started)
 	MessageBus.COOLDOWN_UPDATED.connect(_on_cooldown_updated)
 	MessageBus.COOLDOWN_ENDED.connect(_on_cooldown_ended)
-
-	MessageBus.CAST_ON_COOLDOWN.connect(trigger_cooldown_animation)
 
 func _on_cooldown_started(spell_name: String, _duration: float):
 	if this_spell != spell_name:
@@ -40,7 +39,5 @@ func play_ready_animation():
 	tween.tween_property(self, "scale", Vector2(0.9, 0.9), 0.1)
 	tween.tween_property(self, "scale", Vector2(1.15, 1.15), 0.15)
 	tween.tween_property(self, "scale", Vector2.ONE, 0.12)
-
-func trigger_cooldown_animation(spell_name: String) -> void:
-	if this_spell != spell_name: return
-	print("En cooldown")
+	
+	audio.play()
