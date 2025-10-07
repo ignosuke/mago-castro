@@ -1,0 +1,69 @@
+[gd_scene load_steps=9 format=3 uid="uid://cqx4qbr3tl1e0"]
+
+[ext_resource type="Script" uid="uid://dnt3so0mk6vsa" path="res://scripts/enemies/dummy.gd" id="1_gwx3r"]
+[ext_resource type="Texture2D" uid="uid://njsjth2pp66u" path="res://assets/sprites/enemies/enemies.png" id="1_jyxob"]
+[ext_resource type="Script" uid="uid://bmpicykhtdt61" path="res://scripts/hurtbox.gd" id="2_fs1u8"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cbii8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ajg0a"]
+atlas = ExtResource("1_jyxob")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3nxr"]
+atlas = ExtResource("1_jyxob")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1wa3b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ajg0a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3nxr")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8hi83"]
+
+[node name="Dummy" type="Area2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_gwx3r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_cbii8")
+debug_color = Color(0.956863, 0, 0, 0.419608)
+
+[node name="Shade" type="Sprite2D" parent="."]
+position = Vector2(-1, 7)
+texture = ExtResource("1_jyxob")
+region_enabled = true
+region_rect = Rect2(69, 55, 22, 6)
+
+[node name="Animator" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 8)
+sprite_frames = SubResource("SpriteFrames_1wa3b")
+animation = &"idle"
+autoplay = "idle"
+offset = Vector2(2, -16)
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("2_fs1u8")
+metadata/_custom_type_script = "uid://bmpicykhtdt61"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_8hi83")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+collide_with_areas = true
+collide_with_bodies = false

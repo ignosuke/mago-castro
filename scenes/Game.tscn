@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=4 uid="uid://dsypgiiynky7m"]
+[gd_scene load_steps=10 format=4 uid="uid://dsypgiiynky7m"]
 
 [ext_resource type="PackedScene" uid="uid://2dr4psea34po" path="res://scenes/ui/HUD.tscn" id="1_cpr0p"]
 [ext_resource type="Texture2D" uid="uid://h5c30022m6kx" path="res://assets/sprites/terrain/New Basic Tiles Free.png" id="1_s0nni"]
+[ext_resource type="Theme" uid="uid://hxly4oe8srts" path="res://assets/ui/default_theme.tres" id="2_kiw3p"]
 [ext_resource type="PackedScene" uid="uid://brtnpx5sgbdmx" path="res://scenes/player/MageTower.tscn" id="2_qbsmt"]
 [ext_resource type="PackedScene" uid="uid://y1mj31bv6ooq" path="res://scenes/enemies/HordeSpawner.tscn" id="4_78awf"]
+[ext_resource type="PackedScene" uid="uid://cqx4qbr3tl1e0" path="res://scenes/enemies/Dummy.tscn" id="6_aug50"]
 [ext_resource type="AudioStream" uid="uid://d3n0j52w2eq8h" path="res://assets/audio/game_music.wav" id="7_kiw3p"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_aug50"]
@@ -138,6 +140,51 @@ sources/0 = SubResource("TileSetAtlasSource_aug50")
 [node name="Game" type="Node2D"]
 
 [node name="HUD" parent="." instance=ExtResource("1_cpr0p")]
+visible = false
+
+[node name="Tutorial" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="Tutorial"]
+anchors_preset = -1
+anchor_left = 0.6
+anchor_top = 0.11100001
+anchor_right = 1.0
+anchor_bottom = 0.356
+offset_top = 0.0399971
+offset_bottom = -0.16000366
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_kiw3p")
+
+[node name="Panel" type="Panel" parent="Tutorial/MarginContainer"]
+layout_mode = 2
+
+[node name="Dialog" type="Label" parent="Tutorial/MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.031000001
+anchor_top = 0.091000006
+anchor_right = 0.96900004
+anchor_bottom = 0.90900004
+offset_left = 0.06399965
+offset_top = -0.008000374
+offset_right = -0.06401062
+offset_bottom = 0.0079956055
+
+[node name="Continue" type="Label" parent="Tutorial/MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.031000001
+anchor_top = 0.091000006
+anchor_right = 0.96900004
+anchor_bottom = 0.90900004
+offset_left = 156.064
+offset_top = 47.992
+offset_right = 3.9359894
+offset_bottom = 5.0079956
+theme_override_font_sizes/font_size = 8
+text = "Press SPACE
+to continue"
 
 [node name="Terrain" type="Node2D" parent="."]
 metadata/_edit_lock_ = true
@@ -162,3 +209,6 @@ stream = ExtResource("7_kiw3p")
 volume_db = -20.0
 autoplay = true
 bus = &"Music"
+
+[node name="Dummy" parent="." instance=ExtResource("6_aug50")]
+position = Vector2(264, 232)

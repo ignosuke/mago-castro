@@ -16,7 +16,7 @@ func _ready() -> void:
 	spawn_timer.timeout.connect(_on_spawn_timer_timeout)
 	spawn_curve = create_difficulty_curve()
 
-	start_spawning()
+	#start_spawning()
 
 func start_spawning():
 	is_spawning = true
