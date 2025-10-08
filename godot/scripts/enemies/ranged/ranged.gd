@@ -8,7 +8,7 @@ class_name Ranged extends Enemy
 var arrow_scene = preload("res://scenes/enemies/Arrow.tscn")
 
 func _ready() -> void:
-	_init(10.0, 2, 30.0, 3.0)
+	_init(10.0, 3, 27.0, 3.0)
 	ATTACK_COOLDOWN_TIMER.one_shot = true
 	add_child(ATTACK_COOLDOWN_TIMER)
 	

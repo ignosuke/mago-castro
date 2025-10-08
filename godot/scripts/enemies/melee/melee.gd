@@ -5,7 +5,7 @@ class_name Melee extends Enemy
 @onready var hurt_box: HurtBox = $HurtBox
 
 func _ready() -> void:
-	_init(10.0, 4, 30.0, 3.0)
+	_init(10.0, 4, 32.0, 3.0)
 	ATTACK_COOLDOWN_TIMER.one_shot = true
 	add_child(ATTACK_COOLDOWN_TIMER)
 	

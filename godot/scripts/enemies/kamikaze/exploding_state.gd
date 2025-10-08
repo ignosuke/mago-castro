@@ -6,6 +6,5 @@ func _enter() -> void:
 	enemy.hurt_box.monitoring = false
 
 func _on_explosion_finished() -> void:
-	# Shake screen
-	
+	MessageBus.ATTACK_TOWER.emit(enemy.DAMAGE)
 	enemy.queue_free()
