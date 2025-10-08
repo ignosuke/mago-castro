@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=4 uid="uid://dsypgiiynky7m"]
+[gd_scene load_steps=10 format=4 uid="uid://dsypgiiynky7m"]
 
 [ext_resource type="PackedScene" uid="uid://2dr4psea34po" path="res://scenes/ui/HUD.tscn" id="1_cpr0p"]
+[ext_resource type="Script" uid="uid://da22botvindq2" path="res://scripts/game.gd" id="1_kiw3p"]
 [ext_resource type="Texture2D" uid="uid://h5c30022m6kx" path="res://assets/sprites/terrain/New Basic Tiles Free.png" id="1_s0nni"]
 [ext_resource type="PackedScene" uid="uid://t06pferan4g8" path="res://scenes/ui/Tutorial.tscn" id="2_kiw3p"]
 [ext_resource type="PackedScene" uid="uid://brtnpx5sgbdmx" path="res://scenes/player/MageTower.tscn" id="2_qbsmt"]
@@ -137,6 +138,7 @@ texture = ExtResource("1_s0nni")
 sources/0 = SubResource("TileSetAtlasSource_aug50")
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_kiw3p")
 
 [node name="HUD" parent="." instance=ExtResource("1_cpr0p")]
 

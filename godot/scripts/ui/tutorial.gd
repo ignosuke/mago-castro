@@ -13,17 +13,17 @@ const dialog_msgs = [
 	"These guys never let me enjoy myself",
 	"I could use some help, whatdya say?",
 	"Listen, I lend you my magic and you recite the spells",
-	"Try casting this spell: 'FLAME' with SPACEBAR"
+	"But be careful, if you make a mistake you'll be penalized",
+	"Type 'FLAME' and press SPACEBAR to cast your first spell"
 ]
 
 const casting = "Let's see where this goes..."
-const cast_success = "ZAMN you learn quickly, let's have some fun"
+const cast_success = "ZAMN you learn quickly, let's have some fun then..."
 const cast_error = "Oops, wrong spell. Don't worry, try again: 'FLAME'"
 
 var fade_out_timer: Timer = Timer.new()
 @onready var tutorial_container: MarginContainer = $TutorialContainer
 
-# Este código está muy sucio, sepan disculpar, lo hice casi a última hora Dx
 func _ready() -> void:
 	MessageBus.RECITING_SPELL.connect(func():
 		dialog_label.text = casting

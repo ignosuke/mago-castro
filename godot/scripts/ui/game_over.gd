@@ -1,6 +1,6 @@
 extends Node2D
 
-@export_group("")
+@export_group("Screen Config")
 @export var game_over: Texture2D
 @export var you_won: Texture2D
 @export var win_audio_stream: AudioStream
@@ -10,14 +10,17 @@ extends Node2D
 @onready var game_over_sprite: Sprite2D = $GameOverSprite
 @onready var message_sprite: Sprite2D = $MessageSprite
 @onready var audio: AudioStreamPlayer = $AudioStreamPlayer
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var won: bool = false
+var ready_to_restart: bool = false
 
 func _ready() -> void:
 	game_over_sprite.texture = game_over
 	
 	z_index = 100
 	position = get_viewport().get_visible_rect().size / 2
+	position.y -= 60
 	game_over_sprite.scale = Vector2.ZERO
 	message_sprite.scale = Vector2.ZERO
 	_enter_transition()
@@ -37,4 +40,13 @@ func _message_transition() -> void:
 		message_sprite.offset.x += 32
 	audio.play()
 	create_tween().tween_property(message_sprite, "scale", Vector2(1.2, 1.2), 0.5)\
-	.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+	.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN).finished.connect(
+		func():
+			ready_to_restart = true
+			animation_player.play("restart_msg")
+	)
+
+func _input(_event: InputEvent) -> void:
+	if Input.is_action_just_pressed("restart") && ready_to_restart:
+		MessageBus.RESTART.emit()
+		queue_free()

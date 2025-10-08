@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=7 format=3 uid="uid://hxly4oe8srts"]
 
-[ext_resource type="FontFile" uid="uid://dv5ntxs6ktd86" path="res://assets/fonts/Daydream.otf" id="1_1x47d"]
+[ext_resource type="FontFile" uid="uid://bsx7v0528fxl8" path="res://assets/fonts/Daydream.ttf" id="1_1x47d"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1x47d"]
 

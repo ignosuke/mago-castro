@@ -51,6 +51,33 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "PAUSED"
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HelpLabels" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="Label" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HelpLabels"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.0627451, 0.11764706, 0.16078432, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 8
+text = "1. Type to recite spell"
+
+[node name="Label2" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HelpLabels"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.0627451, 0.11764706, 0.16078432, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 8
+text = "2. ENTER  or  SPACEBAR to cast"
+
+[node name="Label3" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HelpLabels"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.0627451, 0.11764706, 0.16078432, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 8
+text = "3. BACKSPACE TO  ERASE"
 
 [node name="Settings" parent="MarginContainer/Panel/MarginContainer/VBoxContainer" instance=ExtResource("3_70q5k")]
 layout_mode = 2

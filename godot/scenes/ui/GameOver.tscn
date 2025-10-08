@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://m2axoooj02bv"]
+[gd_scene load_steps=11 format=3 uid="uid://m2axoooj02bv"]
 
 [ext_resource type="Script" uid="uid://ba8qco7n5aeje" path="res://scripts/ui/game_over.gd" id="1_57v1k"]
 [ext_resource type="Texture2D" uid="uid://d3i2bljrejg0x" path="res://assets/sprites/ui/game_over.png" id="1_kp3qx"]
@@ -6,6 +6,45 @@
 [ext_resource type="Texture2D" uid="uid://ciipnnkoop8j5" path="res://assets/sprites/ui/you_lose.png" id="4_tnwko"]
 [ext_resource type="AudioStream" uid="uid://caascku1thc00" path="res://assets/audio/game_won.wav" id="5_tnwko"]
 [ext_resource type="AudioStream" uid="uid://i6gcar42do57" path="res://assets/audio/game_lost.wav" id="6_fb0mb"]
+[ext_resource type="Theme" uid="uid://hxly4oe8srts" path="res://assets/ui/default_theme.tres" id="7_o4wla"]
+
+[sub_resource type="Animation" id="Animation_o4wla"]
+resource_name = "restart_msg"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.25, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_xgyu6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1q2vd"]
+_data = {
+&"RESET": SubResource("Animation_xgyu6"),
+&"restart_msg": SubResource("Animation_o4wla")
+}
 
 [node name="GameOver" type="Node2D"]
 script = ExtResource("1_57v1k")
@@ -23,5 +62,21 @@ texture = ExtResource("1_kp3qx")
 position = Vector2(0, 65)
 texture = ExtResource("3_pxa5g")
 
+[node name="Label" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_left = -136.0
+offset_top = 120.0
+offset_right = 139.0
+offset_bottom = 146.0
+theme = ExtResource("7_o4wla")
+theme_override_colors/font_outline_color = Color(0.0627451, 0.11764706, 0.16078432, 1)
+theme_override_constants/outline_size = 12
+text = "Press R to restart"
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 bus = &"SFX"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_1q2vd")
+}

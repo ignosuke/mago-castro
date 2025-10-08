@@ -12,6 +12,11 @@ func _ready() -> void:
 	GameManager.tower_hurtbox = hurt_box
 	hurt_box.DETECTED_HITBOX.connect(_take_damage)
 	MessageBus.ATTACK_TOWER.connect(_take_damage)
+	
+	MessageBus.RESTART.connect(func(): 
+		health = 100
+		MessageBus.TOWER_HEALTH_UPDATE.emit(health)
+	)
 
 func _take_damage(damage: int) -> void:
 	animation_player.play("take_damage")
@@ -20,7 +25,7 @@ func _take_damage(damage: int) -> void:
 	if health - damage <= 0: 
 		health = 0
 		MessageBus.TOWER_HEALTH_UPDATE.emit(health)
-		GameManager.GAME_OVER.emit(false)
+		MessageBus.GAME_LOST.emit()
 		return
 	
 	health -= damage

@@ -9,25 +9,27 @@ var spawn_curve: Curve
 @export var max_spawn_time: float = 5.0
 
 @onready var spawn_timer: Timer = $SpawnTimer
-var elapsed_seconds = GameManager.elapsed_seconds
+var elapsed_seconds: float = 0.0
 var is_spawning: bool = false
 
 func _ready() -> void:
 	spawn_timer.timeout.connect(_on_spawn_timer_timeout)
-	spawn_curve = create_difficulty_curve()
+	spawn_curve = _create_difficulty_curve()
 	
-	MessageBus.TUTORIAL_COMPLETED.connect(func(): start_spawning())
+	MessageBus.TUTORIAL_COMPLETED.connect(_start_spawning)
+	MessageBus.RESTART.connect(_start_spawning)
 
-func start_spawning():
+func _start_spawning():
+	_kill_all_enemies_to_reset()
 	is_spawning = true
-	schedule_next_spawn()
+	_schedule_next_spawn()
 
 func _process(_delta: float) -> void:
 	elapsed_seconds = GameManager.elapsed_seconds
-	if elapsed_seconds >= total_duration && is_spawning:
-		stop_spawning()
+	if  elapsed_seconds >= total_duration && is_spawning:
+		_stop_spawning()
 
-func create_difficulty_curve() -> Curve:
+func _create_difficulty_curve() -> Curve:
 	var curve = Curve.new()
 	curve.min_value = 0.0
 	curve.max_value = 1.0
@@ -52,14 +54,14 @@ func create_difficulty_curve() -> Curve:
 	
 	return curve
 
-func get_enemy_weights() -> Array[float]:
+func _get_enemy_weights() -> Array[float]:
 	# Return [Melee, Ranged, Kamikaze]
 	
-	if elapsed_seconds < 36.0:
+	if elapsed_seconds < 30.0:
 		# Solo melee
 		return [1.0, 0.0, 0.0]
 	
-	elif elapsed_seconds < 60.0:
+	elif elapsed_seconds < 54.0:
 		# Melee + algo de ranged
 		return [0.7, 0.3, 0.0]
 	
@@ -67,12 +69,16 @@ func get_enemy_weights() -> Array[float]:
 		# Melee + ranged + poco kamikaze
 		return [0.7, 0.25, 0.05]
 	
+	elif elapsed_seconds < 104.0:
+		# Melee + ranged + poco kamikaze
+		return [0.6, 0.3, 0.1]
+	
 	else:
 		# Ratio final: aproximado 8:3:1
 		return [0.5, 0.35, 0.15]
 
-func choose_enemy_type() -> int:
-	var weights = get_enemy_weights()
+func _choose_enemy_type() -> int:
+	var weights = _get_enemy_weights()
 	var total_weight = weights[0] + weights[1] + weights[2]
 	
 	if total_weight == 0:
@@ -88,21 +94,21 @@ func choose_enemy_type() -> int:
 	
 	return 0
 
-func schedule_next_spawn():
-	if not is_spawning:
+func _schedule_next_spawn() -> void:
+	if !is_spawning:
 		return
 	
 	var curve_value = spawn_curve.sample(elapsed_seconds)
 	var spawn_delay = lerp(min_spawn_time, max_spawn_time, curve_value)
 	spawn_timer.start(spawn_delay)
 
-func _on_spawn_timer_timeout():
-	spawn_enemy()
-	schedule_next_spawn()
+func _on_spawn_timer_timeout() -> void:
+	_spawn_enemy()
+	_schedule_next_spawn()
 
-func spawn_enemy() -> void:
+func _spawn_enemy() -> void:
 	var spawn_position = spawnpoints.pick_random().global_position
-	var enemy_type = choose_enemy_type()
+	var enemy_type = _choose_enemy_type()
 	var enemy_to_spawn = enemies[enemy_type].instantiate()
 	
 	enemy_to_spawn.global_position = Vector2(
@@ -114,7 +120,23 @@ func spawn_enemy() -> void:
 	#var enemy_names = ["Melee", "Ranged", "Kamikaze"]
 	#print("%s spawneado en t=%.1fs" % [enemy_names[enemy_type], elapsed_seconds])
 
-func stop_spawning():
+func _stop_spawning() -> void:
 	is_spawning = false
 	spawn_timer.stop()
-	MessageBus.HORDE_COMPLETED.emit()
+
+	await _wait_for_all_enemies_dead()
+	MessageBus.GAME_WON.emit()
+
+func _wait_for_all_enemies_dead() -> void:
+	while true:
+		await get_tree().create_timer(0.5).timeout
+		var remaining_enemies = get_children().filter(
+			func(child): return child is Enemy
+		)
+		if remaining_enemies.is_empty():
+			break
+
+func _kill_all_enemies_to_reset() -> void:
+	get_children().filter(
+		func(child): if child is Enemy: child.queue_free()
+	)

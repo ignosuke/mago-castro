@@ -24,7 +24,7 @@ func _show_hud():
 	)
 
 func _on_tower_health_changed(current_health: int):
-	health_label.text = "Vida: %s" % current_health
+	health_label.text = "HP: %s" % current_health
 	update_health(current_health)
 
 func update_health(percent: float):

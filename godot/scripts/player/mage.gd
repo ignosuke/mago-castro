@@ -14,7 +14,6 @@ var gesture_timer: Timer = Timer.new()
 
 var closest_enemy: Enemy
 var enemies_by_proximity: Array[Enemy] = []
-var horde_completed: bool = false
 
 var SPELLS = ["FLAME", "FIREBOLT", "JOLT"]
 
@@ -51,12 +50,6 @@ func _ready() -> void:
 	MessageBus.ATTEMPT_CAST.connect(_on_attempt_cast)
 	MessageBus.CAST_WHILE_PENALIZED.connect(_cast_while_penalized)
 	penalty_timer.timeout.connect(_on_penalty_timeout)
-	
-	MessageBus.HORDE_COMPLETED.connect(func(): horde_completed = true)
-
-func _process(_delta: float) -> void:
-	if horde_completed && enemies_by_proximity.is_empty():
-		GameManager.GAME_OVER.emit(true)
 
 func _physics_process(_delta: float) -> void:
 	if !enemies_by_proximity.is_empty(): 

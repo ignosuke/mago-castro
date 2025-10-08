@@ -19,4 +19,6 @@ signal DISABLE_CASTING_MACHINE
 signal TUTORIAL_COMPLETED
 signal HORDE_COMPLETED
 
-signal SCREEN_SHAKE(duration: float, intensity: float)
+signal GAME_WON
+signal GAME_LOST
+signal RESTART
