@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://dsypgiiynky7m"]
+[gd_scene load_steps=10 format=4 uid="uid://dsypgiiynky7m"]
 
 [ext_resource type="PackedScene" uid="uid://2dr4psea34po" path="res://scenes/ui/HUD.tscn" id="1_cpr0p"]
 [ext_resource type="Script" uid="uid://da22botvindq2" path="res://scripts/game.gd" id="1_kiw3p"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://brtnpx5sgbdmx" path="res://scenes/player/MageTower.tscn" id="2_qbsmt"]
 [ext_resource type="PackedScene" uid="uid://y1mj31bv6ooq" path="res://scenes/enemies/HordeSpawner.tscn" id="4_78awf"]
 [ext_resource type="AudioStream" uid="uid://d3n0j52w2eq8h" path="res://assets/audio/game_music.wav" id="7_kiw3p"]
-[ext_resource type="PackedScene" uid="uid://bgjs03eyuklqn" path="res://scenes/enemies/Kamikaze.tscn" id="8_400sg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_aug50"]
 texture = ExtResource("1_s0nni")
@@ -168,6 +167,3 @@ stream = ExtResource("7_kiw3p")
 volume_db = -20.0
 autoplay = true
 bus = &"Music"
-
-[node name="Kamikaze" parent="." instance=ExtResource("8_400sg")]
-position = Vector2(280, 496)
